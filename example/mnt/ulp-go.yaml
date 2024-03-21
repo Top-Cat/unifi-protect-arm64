@@ -1,0 +1,7 @@
+db.host = protect-pg
+db.port = 5432
+db.password = qWb5vF9ndskAqj6L26jB
+
+#log.std = true
+#log.debug = true
+#log.redirect_std_output = false

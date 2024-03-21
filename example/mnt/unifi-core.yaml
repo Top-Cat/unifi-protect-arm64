@@ -1,0 +1,9 @@
+postgres:
+  host: protect-pg
+  port: 5432
+  database: unifi-core
+  user: unifi-core
+  password: F3zCcZS5yN5UZYkaCx3P
+#ssl:
+#  directCrt: '/data/unifi-core/config/unifi-core.crt'
+#  directKey: '/data/unifi-core/config/unifi-core.key'

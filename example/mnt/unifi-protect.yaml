@@ -1,0 +1,16 @@
+{
+  "postgres": {
+    "host": "protect-pg",
+    "port": 5432,
+    "dbName": "unifi-protect",
+    "username": "unifi-protect",
+    "password": "rTh98xxa7JgSMXKzUqVw",
+    "pool": {
+      "max": 10,
+      "min": 2,
+      "idle": 10000
+    },
+    "dbCorruptedFlag": "./data/.corrupted-db"
+  },
+  "enableSsh": true
+}
