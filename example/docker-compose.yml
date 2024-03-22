@@ -10,8 +10,6 @@ services:
       POSTGRES_USER: unifi-core
       POSTGRES_DB: unifi-core
     restart: always
-#    ports:
-#      - "4432:5432"
   protect:
     image: iamtopcat/unifi-protect-arm64:3.2.12-3.0.22
     privileged: true

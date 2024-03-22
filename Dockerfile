@@ -85,7 +85,8 @@ RUN sed -i 's/sudo .* psql/psql/' /usr/lib/ulp-go/scripts/unifi-goapp-mgnt-exten
   sed -i 's/sudo -u postgres //' /usr/lib/ulp-go/scripts/unifi-goapp-mgnt-extension.sh && \
   sed -i 's/-U ${user}//' /usr/lib/ulp-go/scripts/unifi-goapp-mgnt-extension.sh && \
   sed -i 's/psql_dropdb/source \/data\/ulp-go.pg.sh\n\npsql_dropdb/' /usr/lib/ulp-go/scripts/unifi-goapp-mgnt-extension.sh && \
-  sed -i 's/psql -U postgres/psql/' /usr/lib/ulp-go/scripts/unifi-goapp-mgnt-extension.sh
+  sed -i 's/psql -U postgres/psql/' /usr/lib/ulp-go/scripts/unifi-goapp-mgnt-extension.sh && \
+  sed -i 's/grep ro/grep ro,/' /usr/share/unifi-protect/app/hooks/pre-start
 
 RUN mkdir /var/log/postgresql && ln -s /bin/true /usr/bin/pg_createcluster
 RUN mv /usr/bin/pg_isready /usr/bin/pg_isready.orig && ln -s /bin/true /usr/bin/pg_isready

@@ -12,5 +12,6 @@
     },
     "dbCorruptedFlag": "./data/.corrupted-db"
   },
+  "videoPath": "/persistent/video",
   "enableSsh": true
 }
