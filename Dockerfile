@@ -63,12 +63,14 @@ RUN --mount=type=bind,from=firmware,source=/opt/debs,target=/debs apt-get -y --n
 RUN echo 'deb https://apt.artifacts.ui.com bullseye main release beta' > /etc/apt/sources.list.d/ubiquiti.list
 RUN chmod 666 /etc/apt/sources.list.d/ubiquiti.list
 RUN apt-get update
+RUN mv /bin/systemctl /bin/systemctl.tmp && echo -e '#!/bin/bash\necho 0' > /bin/systemctl && chmod +x /bin/systemctl
 RUN --mount=type=bind,from=firmware,source=/opt/debs,target=/debs --mount=type=bind,target=/git-debs,source=put-deb-files-here,ro \
       apt-get -o DPkg::Options::=--force-confdef -y --no-install-recommends install /git-debs/*.deb /debs/*.deb unifi-protect && \
       find /etc/dpkg/dpkg.cfg.d -type f -exec sed -i "s#/usr/bin/systemd-cat -t ##g" {} \; && \
       apt-mark hold postgresql-14 postgresql-9.6 && \
       apt update && apt upgrade -y --no-install-recommends && \
       rm -rf /var/lib/apt/lists/*
+RUN mv /bin/systemctl.tmp /bin/systemctl
 RUN echo "exit 0" > /usr/sbin/policy-rc.d
 RUN sed -i "s/redirectHostname: 'unifi'//" /usr/share/unifi-core/app/config/default.yaml
 RUN mv /sbin/mdadm /sbin/mdadm.orig
