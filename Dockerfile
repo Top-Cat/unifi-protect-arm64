@@ -1,4 +1,4 @@
-FROM amd64/debian AS firmware
+FROM --platform=$BUILDPLATFORM debian AS firmware
 ARG FW_URL
 WORKDIR /opt
 RUN apt-get update \
