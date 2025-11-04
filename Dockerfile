@@ -1,5 +1,6 @@
 FROM --platform=$BUILDPLATFORM debian AS firmware
 ARG FW_URL
+ARG AIFC_UPDATE_URL='https://fw-update.ubnt.com/api/firmware-latest?filter=eq~~product~~ai-feature-console&filter=eq~~channel~~release&filter=eq~~platform~~uos-deb11-arm64'
 WORKDIR /opt
 RUN apt-get update \
     && apt-get -y install \
@@ -16,6 +17,10 @@ WORKDIR /opt/debs
 RUN while read pkg; do \
         dpkg-repack --root=../_fwupdate.bin.extracted/squashfs-root/ --arch=arm64 ${pkg}; \
     done < ../packages.txt
+RUN if [ -z "$AIFC_URL" ]; then \
+      AIFC_URL="$(wget -q --output-document - "$AIFC_UPDATE_URL" | jq -r '._embedded.firmware[0]._links.data.href')"; \
+    fi \
+    && wget --no-verbose --show-progress --progress=dot:giga -O /opt/debs/ai-feature-console.deb "$AIFC_URL"
 
 FROM arm64v8/debian:11
 ARG DEBIAN_FRONTEND=noninteractive
